@@ -9,7 +9,7 @@
 using namespace std;
 void PressEnterToContinue();
 void menu();
-void readAFile(string str);
+void readAFile(string str, int counter);
 bool check_number(string str);
 void read_config();
 void display_city_map();
@@ -94,7 +94,8 @@ int main() //main function
                 flag = false;
                 break;
             default:
-                cout << "Please key in a valid option" << endl << endl;
+                cout << "Please key in a valid option" << endl
+                     << endl;
                 PressEnterToContinue();
             }
         }
@@ -178,7 +179,7 @@ void read_config()
     }
 
     master_array = new int[3 * x * y](); //declare a 3D dynamic array, 3D array is used as the program stores 3 2D maps(city,cloud,pressure) with exactly the same size and coordinates. It also allows for easy cross refering of data sets without the use of classes.
-
+    int counter = 0;
     string bLine;
     fstream inputFile1(inputFilename.c_str(), fstream::in); //second file stream to find all the lines that end in .txt for value mapping
     while (getline(inputFile1, bLine))
@@ -187,39 +188,32 @@ void read_config()
         size_t pos = bLine.find(".txt");
 
         if (pos != string::npos)
-
-            readAFile(bLine); //function that reads the filename from within a file and stores it into our 3D array
+        {
+            readAFile(bLine, counter); //function that reads the filename from within a file and stores it into our 3D array
+            counter++;
+        }
     }
 
     cout << endl;
-    cout << "All records successfuly stored. Going back to main menu" << endl << endl;
+    cout << "All records successfuly stored. Going back to main menu" << endl
+         << endl;
 }
 //function that reads a file that was called from a previous function. This function reads all strings that ends with .txt
-void readAFile(string filename)
+void readAFile(string filename, int counter)
 {
     fstream inputFile(filename.c_str(), fstream::in); //opens the .txt file name that was passed through
     int value;
-    int datatype; //this variable is used to set which data type (city,cloud,pressure) will the array interation be set to
     int get_x;
     int get_y;
     vector<string> temp;
-    
-    if (filename.find("citylocation") != string::npos)
+
+    if (counter == 0)
     {
-        datatype = 0;            //sets datatype to 0 for the city "layer" of the map
+        //sets datatype to 0 for the city "layer" of the map
         get_cty_names(filename); //calls this function to store the unique names and cityID of citylocation file.
-        cout << "Storing data from : " << filename;
+        
     }
-    if (filename.find("cloudcover") != string::npos)
-    {
-        datatype = 1; //sets datatype to 1 for the cloud layer of the map
-        cout << "Storing data from : " << filename;
-    }
-    if (filename.find("pressure") != string::npos)
-    {
-        datatype = 2; //sets datatupe to 2 for the pressure layer of the map
-        cout << "Storing data from : " << filename;
-    }
+    cout << "Storing data from : " << filename;
     string aLine;
 
     while (getline(inputFile, aLine)) //reads everyline of the .txt file
@@ -230,7 +224,7 @@ void readAFile(string filename)
             get_y = aLine[4] - '0';                                         //gets the y cordinates and uses ASCII arithmatic to store the true value of y
             temp = tokenizeString(aLine, "-");                              //splits [1, 1]-3-Big_City into [1, 1]  3  Big_City
             value = stoi(temp[1]);                                          //gets the value of the cordinates as it will be the second element of the vector
-            *(master_array + datatype * x * y + get_x * y + get_y) = value; //using pointer arithmatic, select the file-read indexes and assign the value to the array *('array_name' + [first index] * size of second index * size of third index + [second index] * size of third index + [third index])
+            *(master_array + counter * x * y + get_x * y + get_y) = value; //using pointer arithmatic, select the file-read indexes and assign the value to the array *('array_name' + [first index] * size of second index * size of third index + [second index] * size of third index + [third index])
         }
     }
     cout << "... done!" << endl;
@@ -273,10 +267,10 @@ void display_city_map()
     print_top();                     //this functions is able to dynamically print the #'s for the top of the map depending on the size of x and y
     for (int j = y - 1; j >= 0; j--) //nest for loops of traverse the array, outer loop starts from y and decrements to 0 due to the array being transposed for the assignment output
     {
-        if(j < 10)
-        cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
+        if (j < 10)
+            cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
         else
-        cout << "  " << j << " # ";//for double digit indexes
+            cout << "  " << j << " # "; //for double digit indexes
         for (int k = 0; k < x; k++)
         {
 
@@ -319,11 +313,11 @@ void display_value_map(int version, int datatype)
     print_top();                     //this functions is able to dynamically print the #'s for the top of the map depending on the size of x and y
     for (int j = y - 1; j >= 0; j--) //nested for loops of array traversal, note that the outer loop traverses the y cordinates first as the map is transposed to match the assignment output as the top left of the map is [0,8] instead of the traditional [0,0]
     {
-        if(j < 10)
-        cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
+        if (j < 10)
+            cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
         else
-        cout << "  " << j << " # ";//for double digit indexes
-        for (int k = 0; k < x; k++)  //nested loop for the x axis
+            cout << "  " << j << " # "; //for double digit indexes
+        for (int k = 0; k < x; k++)     //nested loop for the x axis
         {
 
             if (version == 0) //for cloudiness index mode, just print out the value divided by 10 as the array is an int array no decimal or rounding will occur
@@ -681,10 +675,10 @@ void print_btm()
     cout << "       ";
     for (int i = 0; i < x; i++)
     {
-        if(i < 10)
-        cout << " " << i << " ";
+        if (i < 10)
+            cout << " " << i << " ";
         else
-        cout << " " << i;
+            cout << " " << i;
     }
     cout << endl;
 }
@@ -698,10 +692,10 @@ void rain_prob_map(int mode)
     print_top();                     //this functions is able to dynamically print the #'s for the top of the map depending on the size of x and y
     for (int j = y - 1; j >= 0; j--) //nest for loops of traverse the array, outer loop starts from y and decrements to 0 due to the array being transposed for the assignment output
     {
-        if(j < 10)
-        cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
+        if (j < 10)
+            cout << "  " << j << "  # "; //this line prints the left side of the map with the indexes
         else
-        cout << "  " << j << " # ";//for double digit indexes
+            cout << "  " << j << " # "; //for double digit indexes
         for (int k = 0; k < x; k++)
         {
             if (*(master_array + 1 * x * y + k * y + j) < 35)
