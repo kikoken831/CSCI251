@@ -5,7 +5,6 @@
 #include <vector>
 #include <limits>
 #include <stdio.h>
-//test
 using namespace std;
 void PressEnterToContinue();
 void menu();
@@ -301,11 +300,11 @@ void display_value_map(int version, int datatype)
     {
         cout << "Display Cloud coverage map (LMH symbols)" << endl;
     }
-    else if (version == 0 && datatype == 2)
+    else if (version == 0 && datatype == 2)//function becomes pressure index mode
     {
         cout << "Display Pressure coverage map (cloudiness index)" << endl;
     }
-    else if (version == 1 && datatype == 2)
+    else if (version == 1 && datatype == 2)//function becomes LMH mode
     {
         cout << "Display Pressure coverage map (LMH symbols)" << endl;
     }
@@ -326,7 +325,7 @@ void display_value_map(int version, int datatype)
             }
             else //if function is in LMH mode, proceed with condition checking for LOW MEDIUM or HIGH output for the map
             {
-                if (*(master_array + datatype * x * y + k * y + j) < 35)
+                if (*(master_array + datatype * x * y + k * y + j) < 35)//LMH computation
                 {
                     cout << " L ";
                 }
@@ -698,7 +697,7 @@ void rain_prob_map(int mode)
             cout << "  " << j << " # "; //for double digit indexes
         for (int k = 0; k < x; k++)
         {
-            if (*(master_array + 1 * x * y + k * y + j) < 35)
+            if (*(master_array + 1 * x * y + k * y + j) < 35)//conditional check for LMH for cloud per grid
             {
                 c = 'L';
             }
@@ -711,7 +710,7 @@ void rain_prob_map(int mode)
                 c = 'H';
             }
 
-            if (*(master_array + 2 * x * y + k * y + j) < 35)
+            if (*(master_array + 2 * x * y + k * y + j) < 35)//conditional check for LMH for pressure per grid
             {
                 p = 'L';
             }
@@ -723,7 +722,7 @@ void rain_prob_map(int mode)
             {
                 p = 'H';
             }
-            if (c == 'H' && p == 'L')
+            if (c == 'H' && p == 'L')//gets the rain probabily in the Tens digit as all probability ends in a 0
             {
                 //90%
                 prob = 9;
@@ -800,7 +799,7 @@ void rain_prob_whole()
 {
     double sum1, sum2;
     char c, p;
-    for (int _x = 0; _x < x; _x++)
+    for (int _x = 0; _x < x; _x++)//array traversal of the entire grid
     {
         for (int _y = 0; _y < y; _y++)
         {
@@ -809,9 +808,9 @@ void rain_prob_whole()
             sum2 += *(master_array + 2 * x * y + _x * y + _y);
         }
     }
-    sum1 = sum1 / (x * y);
-    sum2 = sum2 / (x * y);
-    if (sum1 < 35)
+    sum1 = sum1 / (x * y);//get cloud sum and average
+    sum2 = sum2 / (x * y);//get pressure sum and average
+    if (sum1 < 35)//LMH for cloud average
     {
         c = 'L';
     }
@@ -824,7 +823,7 @@ void rain_prob_whole()
         c = 'H';
     }
 
-    if (sum2 < 35)
+    if (sum2 < 35)//LMH for pressure average
     {
         p = 'L';
     }
@@ -837,5 +836,5 @@ void rain_prob_whole()
         p = 'H';
     }
     cout << "Probabilty of rain for the entire grid" << endl;
-    rain_prob(c, p);
+    rain_prob(c, p);//calls the rain prob function with the respective LMH
 }
