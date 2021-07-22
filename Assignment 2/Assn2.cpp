@@ -205,7 +205,7 @@ void read_shape()
     cin >> spec_type;
     //create new shape based on user input
     //if shape_name == "Square"
-    if (shape_name == "Square")
+        if (shape_name == "Square")
     {
         if (spec_type == "WS"){
             //Square sq(shape_name, true);
@@ -220,24 +220,39 @@ void read_shape()
     }
     if (shape_name == "Circle")
     {
-        if (spec_type == "WS")
-            Circle cr(shape_name, true);
-        else
-            Circle cr(shape_name, false);
+       if (spec_type == "WS"){
+            //Square sq(shape_name, true);
+            shapeArray[global_count] = new Circle(shape_name,true);
+            global_count++;
+        }    
+        else{
+            shapeArray[global_count] = new Circle(shape_name,false);
+            global_count++;
+        }
     }
     if (shape_name == "Cross")
     {
-        if (spec_type == "WS")
-            Cross cs(shape_name, true);
-        else
-            Cross cs(shape_name, false);
+        if (spec_type == "WS"){
+            //Square sq(shape_name, true);
+            shapeArray[global_count] = new Cross(shape_name,true);
+            global_count++;
+        }    
+        else{
+            shapeArray[global_count] = new Cross(shape_name,false);
+            global_count++;
+        }
     }
     if (shape_name == "Rectangle")
     {
-        if (spec_type == "WS")
-            Rectangle rt(shape_name, true);
-        else
-            Rectangle rt(shape_name, false);
+        if (spec_type == "WS"){
+            //Square sq(shape_name, true);
+            shapeArray[global_count] = new Cross(shape_name,true);
+            global_count++;
+        }    
+        else{
+            shapeArray[global_count] = new Cross(shape_name,false);
+            global_count++;
+        }
     }
     //run the shape child setter methods for getting the x,y ordinates
     //cout record stored successfully
