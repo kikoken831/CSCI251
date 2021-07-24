@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <sstream>
 using namespace std;
 
 void menu();
@@ -14,7 +15,7 @@ protected:
     bool containsWarpSpace;
 
 public:
-    inline ShapeTwoD()
+    ShapeTwoD()
     {
         name = "N/A";
         containsWarpSpace = false;
@@ -60,15 +61,43 @@ public:
     {
         this->containsWarpSpace = containsWarpSpace;
     }
+
+    virtual void set_ords(){
+        return;
+    }
 };
 
 class Square : public ShapeTwoD
 {
+private:
+    int x_ord[4];
+    int y_ord[4];
 public:
     Square(string name, bool containsWarpSpace)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+    }
+    void set_ords()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            cout<<"Please enter x-ordiante of pt."<<i+1<<" : ";
+            cin>>this->x_ord[i];
+            cout<<"Please enter y-ordiante of pt."<<i+1<<" : ";
+            cin>>this->y_ord[i];
+        }
+
+    }
+    string toString()
+    {
+        string stype = (this->containsWarpSpace)?"WS":"NS";
+        ostringstream os;
+        os<<"Name  : "<<this->name<<endl<<"Speacial Type : "<<stype<<endl<<"Area : XXX units square" << endl<<"Vectices : \n";
+        for(int i = 0; i < 4; i++){
+            os<<"Point ["<<i<<"] : ("<<x_ord[i]<<", "<<y_ord[i]<<")\n";
+        }
+        return os.str();
     }
 };
 
@@ -127,15 +156,15 @@ int main()
                 PressEnterToContinue();
                 break;
             case 3:
-
+                for (int i = 0; i < global_count; i++)
+                {
+                    cout<<"Shape ["<<i<<"]"<<endl;
+                    cout<<shapeArray[i]->toString();
+                }
                 PressEnterToContinue();
                 break;
             case 4:
-                for (int i = 0; i < global_count; i++)
-                {
-                    cout << (shapeArray[i])->getName()<<"  "<<boolalpha<< (shapeArray[i])->getContainsWarpSpace()<< endl;
-                    
-                }
+                
                 PressEnterToContinue();
                 break;
             case 5:
@@ -210,10 +239,12 @@ void read_shape()
         if (spec_type == "WS"){
             //Square sq(shape_name, true);
             shapeArray[global_count] = new Square(shape_name,true);
+            shapeArray[global_count]->set_ords();
             global_count++;
         }    
         else{
             shapeArray[global_count] = new Square(shape_name,false);
+            shapeArray[global_count]->set_ords();
             global_count++;
         }
             
@@ -256,4 +287,5 @@ void read_shape()
     }
     //run the shape child setter methods for getting the x,y ordinates
     //cout record stored successfully
+    cout<<"Record successfully stored. Going back to main menu....."<<endl;
 }
