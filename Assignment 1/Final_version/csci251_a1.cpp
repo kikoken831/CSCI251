@@ -204,6 +204,7 @@ void readAFile(string filename, int counter)
     int get_x;
     int get_y;
     vector<string> temp;
+    vector<string> temp2;
 
     if (counter == 0)
     {
@@ -217,10 +218,16 @@ void readAFile(string filename, int counter)
     {
         if (!aLine.empty())
         {
-            get_x = aLine[1] - '0';                                        //gets the x cordinates and uses ASCII arithmatic to store the true value of x
-            get_y = aLine[4] - '0';                                        //gets the y cordinates and uses ASCII arithmatic to store the true value of y
-            temp = tokenizeString(aLine, "-");                             //splits [1, 1]-3-Big_City into [1, 1]  3  Big_City
-            value = stoi(temp[1]);                                         //gets the value of the cordinates as it will be the second element of the vector
+            temp = tokenizeString(aLine, "-");//splits [1, 1]-3-Big_City into [1, 1]  3  Big_City
+            //[12,34] how would you approach this case?
+            //split via "," to have [12 and 34] (We can assume no value greater than 99)
+            temp2 = tokenizeString(temp[0],",");
+            //temp2[0] = "[12" and temp2[1] = "34]"
+            temp2[0].erase(0,1);
+            temp2[1].erase(temp2[1].size()-1);
+            get_x = stoi(temp2[0]);
+            get_y = stoi(temp2[1]);
+            value = stoi(temp[1]);//gets the value of the cordinates as it will be the second element of the vector
             *(master_array + counter * x * y + get_x * y + get_y) = value; //using pointer arithmatic, select the file-read indexes and assign the value to the array *('array_name' + [first index] * size of second index * size of third index + [second index] * size of third index + [third index])
         }
     }
