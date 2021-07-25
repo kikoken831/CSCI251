@@ -49,7 +49,6 @@ int main() //main function
             case 1:
                 read_config();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                PressEnterToContinue();
                 break;
             case 2:
                 display_city_map();
