@@ -5,7 +5,13 @@
 #include <cstdlib>
 #include <cmath>
 
-#define M_PI 3.14159265358979323846
+#define INF 10000
+
+struct Point
+{
+    int x;
+    int y;
+};
 using namespace std;
 
 void menu();
@@ -226,13 +232,65 @@ public:
            << "Special Type : " << stype << endl
            << "Area : " << area << " units square" << endl
            << "Vectices : \n"
-           << "Point [0] : (" << this->x_ord << ", " << this->y_ord << ")\n";
+           << "Point [0] : (" << this->x_ord << ", " << this->y_ord << ")\n"
+           << "Points on Perimeter : ";
+           for(int i = x_ord -2 ; i < x_ord + 3; i++)
+           {
+               for( int j = y_ord - 2; j < y_ord + 3; j ++)
+               {
+                   if(isPointOnShape(i,j))
+                   {
+                       os << "(" << i << ", " << j << "), ";
+                   }
+               }
+           }
+           /* << x_ord << ", " << y_ord + radius << "), (" << x_ord + radius << ", " << y_ord
+           << "), (" << x_ord << ", " << y_ord - radius << "), (" << x_ord - radius << ", " << y_ord << ")\n\n";*/
+        if (this->radius == 1)
+            os << "\n\nPoints within shape : none!";
+        else
+        {
+            os << "\n\nPoints within shape : "; //WRONG IMPLEMENT IS POINT IN SHAPE FIRST USING THIS FORMULA((x - center_x)^2 + (y - center_y)^2 < radius^2)
+            for(int i = x_ord -1 ; i < x_ord + 2; i++)
+           {
+               for( int j = y_ord - 1; j < y_ord + 2; j ++)
+               {
+                   if(i == x_ord && j == y_ord)
+                   {
+                       continue;
+                   }
+                   if(isPointInShape(i,j))
+                   {
+                       os << "(" << i << ", " << j << "), ";
+                   }
+               }
+           }
+        }
 
         return os.str();
     }
+    bool isPointOnShape(int x, int y)
+    {
+        if(x == x_ord && y == y_ord + radius)
+            return true;
+        else if(x == x_ord + radius && y == y_ord)
+            return true;
+        else if(x == x_ord && y == y_ord - radius)
+            return true;
+        else if(x == x_ord - radius&& y == y_ord)
+            return true;
+        else
+            return false;
+    }
+    bool isPointInShape(int x, int y)
+    {
+        if (pow((x - this->x_ord), 2) + pow((y - this->y_ord), 2) < this->radius * this->radius)
+            return true;
+        else
+            return false;
+    }
     double computeArea()
     {
-
         return M_PI * (this->radius * 2);
     }
 };
@@ -323,7 +381,7 @@ int main()
                 PressEnterToContinue();
                 break;
             case 3:
-                cout<<"Total no. of records available = "<<global_count<<endl;
+                cout << "Total no. of records available = " << global_count << endl;
                 for (int i = 0; i < global_count; i++)
                 {
                     cout << "Shape [" << i << "]" << endl;
@@ -438,12 +496,13 @@ void read_shape()
 void sort_menu()
 {
     char choice;
-    cout <<"    a)      Sort by area (ascending)"<<endl;
-    cout <<"    b)      Sort by area (descending)"<<endl;
-    cout <<"    c)      Sort by special type and area\n"<<endl;
-    cout <<"Please select sort option ('q' to go main menu): ";
+    cout << "    a)      Sort by area (ascending)" << endl;
+    cout << "    b)      Sort by area (descending)" << endl;
+    cout << "    c)      Sort by special type and area\n"
+         << endl;
+    cout << "Please select sort option ('q' to go main menu): ";
 
-    cin>>choice;
+    cin >> choice;
     //switch statement for each sort type
     switch (choice)
     {
@@ -456,24 +515,118 @@ void sort_menu()
     case 'c':
         //special sort
     case 'q':
-        cout<<"Going back to main menu.\n\n";
+        cout << "Going back to main menu.\n\n";
         break;
     }
 }
 //ascending sort
 void asc_sort()
 {
-    cout<<"Sort by area (smallest to largest)...\n";
+    cout << "Sort by area (smallest to largest)...\n";
     //qsort and print in ascending order
-    
 }
 //descending sort
 void dsc_sort()
 {
-    cout<<"Sort by area (largest to smallest)...\n";
+    cout << "Sort by area (largest to smallest)...\n";
 }
 //special sort
 void spec_sort()
 {
-
 }
+
+// Given three colinear points p, q, r, the function checks if
+// point q lies on line segment 'pr'
+bool onSegment(Point p, Point q, Point r)
+{
+    if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) &&
+        q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
+        return true;
+    return false;
+}
+
+// To find orientation of ordered triplet (p, q, r).
+// The function returns following values
+// 0 --> p, q and r are colinear
+// 1 --> Clockwise
+// 2 --> Counterclockwise
+int orientation(Point p, Point q, Point r)
+{
+    int val = (q.y - p.y) * (r.x - q.x) -
+              (q.x - p.x) * (r.y - q.y);
+
+    if (val == 0)
+        return 0;             // colinear
+    return (val > 0) ? 1 : 2; // clock or counterclock wise
+}
+
+// The function that returns true if line segment 'p1q1'
+// and 'p2q2' intersect.
+bool doIntersect(Point p1, Point q1, Point p2, Point q2)
+{
+    // Find the four orientations needed for general and
+    // special cases
+    int o1 = orientation(p1, q1, p2);
+    int o2 = orientation(p1, q1, q2);
+    int o3 = orientation(p2, q2, p1);
+    int o4 = orientation(p2, q2, q1);
+
+    // General case
+    if (o1 != o2 && o3 != o4)
+        return true;
+
+    // Special Cases
+    // p1, q1 and p2 are colinear and p2 lies on segment p1q1
+    if (o1 == 0 && onSegment(p1, p2, q1))
+        return true;
+
+    // p1, q1 and p2 are colinear and q2 lies on segment p1q1
+    if (o2 == 0 && onSegment(p1, q2, q1))
+        return true;
+
+    // p2, q2 and p1 are colinear and p1 lies on segment p2q2
+    if (o3 == 0 && onSegment(p2, p1, q2))
+        return true;
+
+    // p2, q2 and q1 are colinear and q1 lies on segment p2q2
+    if (o4 == 0 && onSegment(p2, q1, q2))
+        return true;
+
+    return false; // Doesn't fall in any of the above cases
+}
+
+// Returns true if the point p lies inside the polygon[] with n vertices
+bool isInside(Point polygon[], int n, Point p)
+{
+    // There must be at least 3 vertices in polygon[]
+    if (n < 3)
+        return false;
+
+    // Create a point for line segment from p to infinite
+    Point extreme = {INF, p.y};
+
+    // Count intersections of the above line with sides of polygon
+    int count = 0, i = 0;
+    do
+    {
+        int next = (i + 1) % n;
+
+        // Check if the line segment from 'p' to 'extreme' intersects
+        // with the line segment from 'polygon[i]' to 'polygon[next]'
+        if (doIntersect(polygon[i], polygon[next], p, extreme))
+        {
+            // If the point 'p' is colinear with line segment 'i-next',
+            // then check if it lies on segment. If it lies, return true,
+            // otherwise false
+            if (orientation(polygon[i], p, polygon[next]) == 0)
+                return onSegment(polygon[i], p, polygon[next]);
+
+            count++;
+        }
+        i = next;
+    } while (i != 0);
+
+    // Return true if count is odd, false otherwise
+    return count & 1; // Same as (count%2 == 1)
+}
+
