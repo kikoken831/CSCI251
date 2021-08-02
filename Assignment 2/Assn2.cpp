@@ -5,13 +5,6 @@
 #include <cstdlib>
 #include <cmath>
 
-#define INF 10000
-
-struct Point
-{
-    int x;
-    int y;
-};
 using namespace std;
 
 void menu();
@@ -56,31 +49,17 @@ public:
     {
         return containsWarpSpace;
     }
-    virtual string toString()
-    {
-        return "";
-    }
+    virtual string toString() = 0;
 
-    virtual double computeArea()
-    {
-        return 0;
-    }
-    virtual bool isPointInShape(int x, int y)
-    {
-        return true;
-    }
-    virtual bool isPointOnShape(int x, int y)
-    {
-        return true;
-    }
-    virtual void set_ords()
-    {
-        return;
-    }
-    virtual void set_area()
-    {
-        return;
-    }
+    virtual double computeArea() = 0;
+
+    virtual bool isPointInShape(int x, int y) = 0;
+
+    virtual bool isPointOnShape(int x, int y) = 0;
+
+    virtual void set_ords() = 0;
+
+    virtual void set_area() = 0;
 };
 
 class Square : public ShapeTwoD
@@ -89,11 +68,14 @@ private:
     int x_ord[4];
     int y_ord[4];
     double area;
+    int x_min;
+    int y_min;
+    int x_max;
+    int y_max;
 
 public:
     void set_area()
     {
-        cout << "sq compute area" << endl;
         this->area = computeArea();
     }
     Square(string name, bool containsWarpSpace)
@@ -109,10 +91,24 @@ public:
             cin >> this->x_ord[i];
             cout << "Please enter y-ordiante of pt." << i + 1 << " : ";
             cin >> this->y_ord[i];
+            if (i == 0)
+            {
+                this->x_min = this->x_ord[i];
+                this->y_min = this->y_ord[i];
+            }
+            if (this->x_ord[i] < x_min)
+                this->x_min = this->x_ord[i];
+            if (this->y_ord[i] < y_min)
+                this->y_min = this->y_ord[i];
+            if (this->x_ord[i] > x_max)
+                this->x_max = this->x_ord[i];
+            if (this->y_ord[i] > y_max)
+                this->y_max = this->y_ord[i];
         }
     }
     string toString()
     {
+        bool isCord = false;
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
         os << "Name  : " << this->name << endl
@@ -123,6 +119,44 @@ public:
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
+        os << "Points on Perimeter : ";
+        for (int i = x_min; i <= x_max; i++)
+        {
+            for (int j = y_min; j <= y_max; j++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    if (x_ord[k] == i && y_ord[k] == j)
+                        isCord = true;
+                }
+                if (isPointOnShape(i, j) && !isCord)
+                {
+                    os << "(" << i << ", " << j << "), ";
+                }
+                isCord = false;
+            }
+        }
+        os << "\b\b"
+           << "  ";
+        if (this->area < 4)
+            os << "\n\nPoints within shape : none!";
+        else
+        {
+            os << "\n\nPoints within shape : ";
+            for (int i = x_min; i <= x_max; i++)
+            {
+                for (int j = y_min; j <= y_max; j++)
+                {
+                    if (isPointInShape(i, j))
+                    {
+                        os << "(" << i << ", " << j << "), ";
+                    }
+                }
+            }
+            os << "\b\b"
+               << "  ";
+        }
+
         return os.str();
     }
     double computeArea()
@@ -139,6 +173,28 @@ public:
         ar = abs(ar);
         return ar;
     }
+    bool isPointInShape(int x, int y)
+    {
+        if (x < this->x_max && x > this->x_min && y < this->y_max && y > this->y_min)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    bool isPointOnShape(int x, int y)
+    {
+        if (x == this->x_min && y >= this->y_min && y <= this->y_max)
+            return true;
+        else if (y == this->y_max && x >= this->x_min && x <= this->x_max)
+            return true;
+        else if (x == this->x_max && y >= this->y_min && y <= this->y_max)
+            return true;
+        else if (y == this->y_min && x >= this->x_min && x <= this->x_max)
+            return true;
+        else
+            return false;
+    }
 };
 
 class Rectangle : public ShapeTwoD
@@ -147,6 +203,10 @@ private:
     int x_ord[4];
     int y_ord[4];
     double area;
+    int x_min;
+    int y_min;
+    int x_max;
+    int y_max;
 
 public:
     void set_area()
@@ -166,21 +226,95 @@ public:
             cin >> this->x_ord[i];
             cout << "Please enter y-ordiante of pt." << i + 1 << " : ";
             cin >> this->y_ord[i];
+            if (i == 0)
+            {
+                this->x_min = this->x_ord[i];
+                this->y_min = this->y_ord[i];
+            }
+            if (this->x_ord[i] < x_min)
+                this->x_min = this->x_ord[i];
+            if (this->y_ord[i] < y_min)
+                this->y_min = this->y_ord[i];
+            if (this->x_ord[i] > x_max)
+                this->x_max = this->x_ord[i];
+            if (this->y_ord[i] > y_max)
+                this->y_max = this->y_ord[i];
         }
     }
     string toString()
     {
+        bool isCord = false;
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
-           << "Area : " << area << " units square" << endl
+           << "Area : " << this->area << " units square" << endl
            << "Vectices : \n";
         for (int i = 0; i < 4; i++)
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
+        os << "Points on Perimeter : ";
+        for (int i = x_min; i <= x_max; i++)
+        {
+            for (int j = y_min; j <= y_max; j++)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    if (x_ord[k] == i && y_ord[k] == j)
+                        isCord = true;
+                }
+                if (isPointOnShape(i, j) && !isCord)
+                {
+                    os << "(" << i << ", " << j << "), ";
+                }
+                isCord = false;
+            }
+        }
+        os << "\b\b"
+           << "  ";
+        if (x_max - x_min == 1 || y_max - y_min == 1)
+            os << "\n\nPoints within shape : none!";
+        else
+        {
+            os << "\n\nPoints within shape : ";
+            for (int i = x_min; i <= x_max; i++)
+            {
+                for (int j = y_min; j <= y_max; j++)
+                {
+                    if (isPointInShape(i, j))
+                    {
+                        os << "(" << i << ", " << j << "), ";
+                    }
+                }
+            }
+            os << "\b\b"
+               << "  ";
+        }
+
         return os.str();
+    }
+    bool isPointInShape(int x, int y)
+    {
+        if (x < this->x_max && x > this->x_min && y < this->y_max && y > this->y_min)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    bool isPointOnShape(int x, int y)
+    {
+        if (x == this->x_min && y >= this->y_min && y <= this->y_max)
+            return true;
+        else if (y == this->y_max && x >= this->x_min && x <= this->x_max)
+            return true;
+        else if (x == this->x_max && y >= this->y_min && y <= this->y_max)
+            return true;
+        else if (y == this->y_min && x >= this->x_min && x <= this->x_max)
+            return true;
+        else
+            return false;
     }
     double computeArea()
     {
@@ -194,6 +328,7 @@ public:
         }
         ar = ar / 2;
         ar = abs(ar);
+        cout << "rect area" << ar << endl;
         return ar;
     }
 };
@@ -234,50 +369,52 @@ public:
            << "Vectices : \n"
            << "Point [0] : (" << this->x_ord << ", " << this->y_ord << ")\n"
            << "Points on Perimeter : ";
-           for(int i = x_ord -2 ; i < x_ord + 3; i++)
-           {
-               for( int j = y_ord - 2; j < y_ord + 3; j ++)
-               {
-                   if(isPointOnShape(i,j))
-                   {
-                       os << "(" << i << ", " << j << "), ";
-                   }
-               }
-           }
-           /* << x_ord << ", " << y_ord + radius << "), (" << x_ord + radius << ", " << y_ord
-           << "), (" << x_ord << ", " << y_ord - radius << "), (" << x_ord - radius << ", " << y_ord << ")\n\n";*/
+        for (int i = x_ord - radius; i <= x_ord + radius; i++)
+        {
+            for (int j = y_ord - radius; j <= y_ord + radius; j++)
+            {
+                if (isPointOnShape(i, j))
+                {
+                    os << "(" << i << ", " << j << "), ";
+                }
+            }
+        }
+        os << "\b\b"
+           << "  ";
         if (this->radius == 1)
             os << "\n\nPoints within shape : none!";
         else
         {
-            os << "\n\nPoints within shape : "; //WRONG IMPLEMENT IS POINT IN SHAPE FIRST USING THIS FORMULA((x - center_x)^2 + (y - center_y)^2 < radius^2)
-            for(int i = x_ord -1 ; i < x_ord + 2; i++)
-           {
-               for( int j = y_ord - 1; j < y_ord + 2; j ++)
-               {
-                   if(i == x_ord && j == y_ord)
-                   {
-                       continue;
-                   }
-                   if(isPointInShape(i,j))
-                   {
-                       os << "(" << i << ", " << j << "), ";
-                   }
-               }
-           }
+            os << "\n\nPoints within shape : ";
+            for (int i = x_ord - radius; i < x_ord + radius; i++)
+            {
+                for (int j = y_ord - radius; j < y_ord + radius; j++)
+                {
+                    if (i == x_ord && j == y_ord)
+                    {
+                        continue;
+                    }
+                    if (isPointInShape(i, j))
+                    {
+                        os << "(" << i << ", " << j << "), ";
+                    }
+                }
+            }
+            os << "\b\b"
+               << "  ";
         }
 
         return os.str();
     }
     bool isPointOnShape(int x, int y)
     {
-        if(x == x_ord && y == y_ord + radius)
+        if (x == x_ord && y == y_ord + radius)
             return true;
-        else if(x == x_ord + radius && y == y_ord)
+        else if (x == x_ord + radius && y == y_ord)
             return true;
-        else if(x == x_ord && y == y_ord - radius)
+        else if (x == x_ord && y == y_ord - radius)
             return true;
-        else if(x == x_ord - radius&& y == y_ord)
+        else if (x == x_ord - radius && y == y_ord)
             return true;
         else
             return false;
@@ -347,6 +484,14 @@ public:
         ar = ar / 2;
         ar = abs(ar);
         return ar;
+    }
+    bool isPointOnShape(int x, int y)
+    {
+        return false;
+    }
+    bool isPointInShape(int x, int y)
+    {
+        return false;
     }
 };
 ShapeTwoD *shapeArray[100]; //global array for shape objects with a 100 shape limit
@@ -534,99 +679,3 @@ void dsc_sort()
 void spec_sort()
 {
 }
-
-// Given three colinear points p, q, r, the function checks if
-// point q lies on line segment 'pr'
-bool onSegment(Point p, Point q, Point r)
-{
-    if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) &&
-        q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
-        return true;
-    return false;
-}
-
-// To find orientation of ordered triplet (p, q, r).
-// The function returns following values
-// 0 --> p, q and r are colinear
-// 1 --> Clockwise
-// 2 --> Counterclockwise
-int orientation(Point p, Point q, Point r)
-{
-    int val = (q.y - p.y) * (r.x - q.x) -
-              (q.x - p.x) * (r.y - q.y);
-
-    if (val == 0)
-        return 0;             // colinear
-    return (val > 0) ? 1 : 2; // clock or counterclock wise
-}
-
-// The function that returns true if line segment 'p1q1'
-// and 'p2q2' intersect.
-bool doIntersect(Point p1, Point q1, Point p2, Point q2)
-{
-    // Find the four orientations needed for general and
-    // special cases
-    int o1 = orientation(p1, q1, p2);
-    int o2 = orientation(p1, q1, q2);
-    int o3 = orientation(p2, q2, p1);
-    int o4 = orientation(p2, q2, q1);
-
-    // General case
-    if (o1 != o2 && o3 != o4)
-        return true;
-
-    // Special Cases
-    // p1, q1 and p2 are colinear and p2 lies on segment p1q1
-    if (o1 == 0 && onSegment(p1, p2, q1))
-        return true;
-
-    // p1, q1 and p2 are colinear and q2 lies on segment p1q1
-    if (o2 == 0 && onSegment(p1, q2, q1))
-        return true;
-
-    // p2, q2 and p1 are colinear and p1 lies on segment p2q2
-    if (o3 == 0 && onSegment(p2, p1, q2))
-        return true;
-
-    // p2, q2 and q1 are colinear and q1 lies on segment p2q2
-    if (o4 == 0 && onSegment(p2, q1, q2))
-        return true;
-
-    return false; // Doesn't fall in any of the above cases
-}
-
-// Returns true if the point p lies inside the polygon[] with n vertices
-bool isInside(Point polygon[], int n, Point p)
-{
-    // There must be at least 3 vertices in polygon[]
-    if (n < 3)
-        return false;
-
-    // Create a point for line segment from p to infinite
-    Point extreme = {INF, p.y};
-
-    // Count intersections of the above line with sides of polygon
-    int count = 0, i = 0;
-    do
-    {
-        int next = (i + 1) % n;
-
-        // Check if the line segment from 'p' to 'extreme' intersects
-        // with the line segment from 'polygon[i]' to 'polygon[next]'
-        if (doIntersect(polygon[i], polygon[next], p, extreme))
-        {
-            // If the point 'p' is colinear with line segment 'i-next',
-            // then check if it lies on segment. If it lies, return true,
-            // otherwise false
-            if (orientation(polygon[i], p, polygon[next]) == 0)
-                return onSegment(polygon[i], p, polygon[next]);
-
-            count++;
-        }
-        i = next;
-    } while (i != 0);
-
-    // Return true if count is odd, false otherwise
-    return count & 1; // Same as (count%2 == 1)
-}
-
