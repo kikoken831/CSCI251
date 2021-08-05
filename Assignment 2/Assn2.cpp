@@ -433,9 +433,14 @@ public:
 };
 class Cross : public ShapeTwoD
 {
-    int x_ord[12];
-    int y_ord[12];
+
+    float x_ord[12] = {3,  8,   8, 10, 10, 8,  8, 3,  3,  1,  1,  3};
+    float y_ord[12] = {14, 14, 12, 12, 10, 10, 8, 8, 10, 10, 12, 12};
     double area;
+    int x_min = 1;
+    int y_min = 8;
+    int x_max = 10;
+    int y_max = 14;
 
 public:
     Cross(string name, bool containsWarpSpace)
@@ -455,6 +460,19 @@ public:
             cin >> this->x_ord[i];
             cout << "Please enter y-ordiante of pt." << i + 1 << " : ";
             cin >> this->y_ord[i];
+            if (i == 0)
+            {
+                this->x_min = this->x_ord[i];
+                this->y_min = this->y_ord[i];
+            }
+            if (this->x_ord[i] < x_min)
+                this->x_min = this->x_ord[i];
+            if (this->y_ord[i] < y_min)
+                this->y_min = this->y_ord[i];
+            if (this->x_ord[i] > x_max)
+                this->x_max = this->x_ord[i];
+            if (this->y_ord[i] > y_max)
+                this->y_max = this->y_ord[i];
         }
     }
     string toString()
@@ -464,11 +482,25 @@ public:
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
            << "Area : " << area << " units square" << endl
-           << "Vectices : \n";
+           << "Vectices : \n"
+           << "xmin xmax ymin ymax : " << this->x_min << " " << this->x_max << " " << this->y_min << " " << this->y_max << "\n";
         for (int i = 0; i < 12; i++)
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
+        os << "\n\nPoints within shape : ";
+        for (int i = x_min; i <= x_max; i++)
+        {
+            for (int j = y_min; j <= y_max; j++)
+            {
+                if (isPointInShape(i, j))
+                {
+                    os << "(" << i << ", " << j << "), ";
+                }
+            }
+        }
+        os << "\b\b"
+           << "  ";
         return os.str();
     }
     double computeArea()
@@ -487,11 +519,25 @@ public:
     }
     bool isPointOnShape(int x, int y)
     {
+
         return false;
     }
     bool isPointInShape(int x, int y)
     {
-        return false;
+        bool flag;
+        flag = pnpoly(12,this->x_ord, this->y_ord,x,y);
+
+        return flag;
+    }
+    int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy)
+    {
+    int i, j, c = 0;
+    for (i = 0, j = nvert-1; i < nvert; j = i++) {
+        if ( ((verty[i]>testy) != (verty[j]>testy)) &&
+        (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
+        c = !c;
+    }
+    return c;
     }
 };
 ShapeTwoD *shapeArray[100]; //global array for shape objects with a 100 shape limit
@@ -624,7 +670,7 @@ void read_shape()
     if (shape_name == "Cross")
     {
         shapeArray[global_count] = new Cross(shape_name, contain_warp);
-        shapeArray[global_count]->set_ords();
+        //shapeArray[global_count]->set_ords();
         global_count++;
     }
     if (shape_name == "Rectangle")
