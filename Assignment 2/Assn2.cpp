@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -7,19 +9,12 @@
 
 using namespace std;
 
-void menu();
-void PressEnterToContinue();
-bool check_number(string str);
-void read_shape();
-void sort_menu();
-void asc_sort();
-void dsc_sort();
-void spec_sort();
 class ShapeTwoD
 {
 protected:
     string name;
     bool containsWarpSpace;
+    int id;
 
 public:
     ShapeTwoD()
@@ -27,11 +22,13 @@ public:
         name = "N/A";
         containsWarpSpace = false;
     }
-    ShapeTwoD(string name, bool containsWarpSpace)
+    ShapeTwoD(string name, bool containsWarpSpace, int id)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+        this->id = id;
     }
+
     void setName(string name)
     {
         this->name = name;
@@ -49,6 +46,7 @@ public:
     {
         return containsWarpSpace;
     }
+
     virtual string toString() = 0;
 
     virtual double computeArea() = 0;
@@ -60,6 +58,8 @@ public:
     virtual void set_ords() = 0;
 
     virtual void set_area() = 0;
+
+    virtual double get_area() = 0;
 };
 
 class Square : public ShapeTwoD
@@ -78,10 +78,11 @@ public:
     {
         this->area = computeArea();
     }
-    Square(string name, bool containsWarpSpace)
+    Square(string name, bool containsWarpSpace, int id)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+        this->id = id;
     }
     void set_ords()
     {
@@ -111,6 +112,7 @@ public:
         bool isCord = false;
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
+        os << "Shape [" << this->id << "]\n";
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
            << "Area : " << this->area << " units square" << endl
@@ -119,6 +121,7 @@ public:
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
+        int iPoS_count = 0;
         os << "Points on Perimeter : ";
         for (int i = x_min; i <= x_max; i++)
         {
@@ -132,12 +135,21 @@ public:
                 if (isPointOnShape(i, j) && !isCord)
                 {
                     os << "(" << i << ", " << j << "), ";
+                    iPoS_count++;
                 }
                 isCord = false;
             }
         }
-        os << "\b\b"
-           << "  ";
+        if (iPoS_count == 0)
+        {
+            os << "None!";
+        }
+        else
+        {
+            os << "\b\b"
+               << "  ";
+        }
+
         if (this->area < 4)
             os << "\n\nPoints within shape : none!";
         else
@@ -195,6 +207,14 @@ public:
         else
             return false;
     }
+    double get_area()
+    {
+        return this->area;
+    }
+    bool operator>(const Square &str) const
+    {
+        return this->area > str.area;
+    }
 };
 
 class Rectangle : public ShapeTwoD
@@ -213,10 +233,11 @@ public:
     {
         this->area = computeArea();
     }
-    Rectangle(string name, bool containsWarpSpace)
+    Rectangle(string name, bool containsWarpSpace, int id)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+        this->id = id;
     }
     void set_ords()
     {
@@ -246,6 +267,7 @@ public:
         bool isCord = false;
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
+        os << "Shape [" << this->id << "]\n";
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
            << "Area : " << this->area << " units square" << endl
@@ -254,6 +276,7 @@ public:
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
+        int iPoS_count = 0;
         os << "Points on Perimeter : ";
         for (int i = x_min; i <= x_max; i++)
         {
@@ -267,9 +290,19 @@ public:
                 if (isPointOnShape(i, j) && !isCord)
                 {
                     os << "(" << i << ", " << j << "), ";
+                    iPoS_count++;
                 }
                 isCord = false;
             }
+        }
+        if (iPoS_count == 0)
+        {
+            os << "None!";
+        }
+        else
+        {
+            os << "\b\b"
+               << "  ";
         }
         os << "\b\b"
            << "  ";
@@ -328,8 +361,15 @@ public:
         }
         ar = ar / 2;
         ar = abs(ar);
-        cout << "rect area" << ar << endl;
         return ar;
+    }
+    double get_area()
+    {
+        return this->area;
+    }
+    bool operator>(const Rectangle &str) const
+    {
+        return this->area > str.area;
     }
 };
 class Circle : public ShapeTwoD
@@ -340,10 +380,11 @@ class Circle : public ShapeTwoD
     double area;
 
 public:
-    Circle(string name, bool containsWarpSpace)
+    Circle(string name, bool containsWarpSpace, int id)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+        this->id = id;
     }
     void set_area()
     {
@@ -363,9 +404,10 @@ public:
     {
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
+        os << "Shape [" << this->id << "]\n";
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
-           << "Area : " << area << " units square" << endl
+           << "Area : " << setprecision(2) << area << " units square" << endl
            << "Vectices : \n"
            << "Point [0] : (" << this->x_ord << ", " << this->y_ord << ")\n"
            << "Points on Perimeter : ";
@@ -430,23 +472,32 @@ public:
     {
         return M_PI * (this->radius * 2);
     }
+    double get_area()
+    {
+        return this->area;
+    }
+    bool operator>(const Circle &str) const
+    {
+        return this->area > str.area;
+    }
 };
 class Cross : public ShapeTwoD
 {
 
-    float x_ord[12] = {3,  8,   8, 10, 10, 8,  8, 3,  3,  1,  1,  3};
-    float y_ord[12] = {14, 14, 12, 12, 10, 10, 8, 8, 10, 10, 12, 12};
+    int x_ord[12];
+    int y_ord[12];
     double area;
-    int x_min = 1;
-    int y_min = 8;
-    int x_max = 10;
-    int y_max = 14;
+    int x_min;
+    int y_min;
+    int x_max;
+    int y_max;
 
 public:
-    Cross(string name, bool containsWarpSpace)
+    Cross(string name, bool containsWarpSpace, int id)
     {
         this->name = name;
         this->containsWarpSpace = containsWarpSpace;
+        this->id = id;
     }
     void set_area()
     {
@@ -479,28 +530,52 @@ public:
     {
         string stype = (this->containsWarpSpace) ? "WS" : "NS";
         ostringstream os;
-        os << "Name  : " << this->name << endl
+        os << "Shape [" << this->id << "]\n"
+           << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
            << "Area : " << area << " units square" << endl
-           << "Vectices : \n"
-           << "xmin xmax ymin ymax : " << this->x_min << " " << this->x_max << " " << this->y_min << " " << this->y_max << "\n";
+           << "Vectices : \n";
         for (int i = 0; i < 12; i++)
         {
             os << "Point [" << i << "] : (" << x_ord[i] << ", " << y_ord[i] << ")\n";
         }
-        os << "\n\nPoints within shape : ";
+        os << "\n\nPoints on Perimeter : ";
+        int iPoS_count = 0;
         for (int i = x_min; i <= x_max; i++)
         {
             for (int j = y_min; j <= y_max; j++)
             {
-                if (isPointInShape(i, j))
+                if (isPointOnShape(i, j))
                 {
                     os << "(" << i << ", " << j << "), ";
+                    iPoS_count++;
                 }
             }
         }
-        os << "\b\b"
-           << "  ";
+        if (iPoS_count == 0)
+            os << "None!";
+        else
+            os << "\b\b"
+               << "  ";
+        int iPiS_count = 0;
+        os << "\n\nPoints within shape : ";
+        for (int i = x_min + 1; i < x_max; i++)
+        {
+            for (int j = y_min + 1; j < y_max; j++)
+            {
+                if (isPointInShape(i, j) && !isPointOnShape(i, j) && !isPointaVertex(i, j))
+                {
+                    os << "(" << i << ", " << j << "), ";
+                    iPiS_count++;
+                }
+            }
+        }
+        if (iPiS_count == 0)
+            os << "None!";
+        else
+            os << "\b\b"
+               << "  ";
+
         return os.str();
     }
     double computeArea()
@@ -520,26 +595,81 @@ public:
     bool isPointOnShape(int x, int y)
     {
 
+        for (int i = 0; i < 11; i++)
+        {
+            //if x is between point x1 and x2 and y == y1 and y == y2
+            int ux = max(x_ord[i], x_ord[i + 1]);
+            int lx = min(x_ord[i], x_ord[i + 1]);
+            int ly = min(y_ord[i], y_ord[i + 1]);
+            int uy = max(y_ord[i], y_ord[i + 1]);
+            if (ux == lx && x == ux && y > ly && y < uy)
+            {
+                return true;
+            }
+            if (uy == ly && y == uy && x > lx && x < ux)
+            {
+                return true;
+            }
+        }
+        int ux = max(x_ord[11], x_ord[0]);
+        int lx = min(x_ord[11], x_ord[0]);
+        int ly = min(y_ord[11], y_ord[0]);
+        int uy = max(y_ord[11], y_ord[0]);
+        if (ux == lx && x == ux && y > ly && y < uy)
+        {
+            return true;
+        }
+        if (uy == ly && y == uy && x > lx && x < ux)
+        {
+            return true;
+        }
         return false;
     }
     bool isPointInShape(int x, int y)
     {
         bool flag;
-        flag = pnpoly(12,this->x_ord, this->y_ord,x,y);
+        flag = pnpoly(12, this->x_ord, this->y_ord, x, y);
 
         return flag;
     }
-    int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy)
+    int pnpoly(int nvert, int *vertx, int *verty, int testx, int testy)
     {
-    int i, j, c = 0;
-    for (i = 0, j = nvert-1; i < nvert; j = i++) {
-        if ( ((verty[i]>testy) != (verty[j]>testy)) &&
-        (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
-        c = !c;
+        int i, j, c = 0;
+        for (i = 0, j = nvert - 1; i < nvert; j = i++)
+        {
+            if (((verty[i] > testy) != (verty[j] > testy)) &&
+                (testx < (vertx[j] - vertx[i]) * (testy - verty[i]) / (verty[j] - verty[i]) + vertx[i]))
+                c = !c;
+        }
+        return c;
     }
-    return c;
+    bool isPointaVertex(int x, int y)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            if (x == x_ord[i] && y == y_ord[i])
+                return true;
+        }
+        return false;
+    }
+    double get_area()
+    {
+        return this->area;
+    }
+    bool operator>(const Cross &str) const
+    {
+        return this->area > str.area;
     }
 };
+void menu();
+void PressEnterToContinue();
+bool check_number(string str);
+void read_shape();
+void sort_menu();
+void dsc_sort(vector<ShapeTwoD *> vec);
+void spec_sort(vector<ShapeTwoD *> vec);
+void asc_sort(vector<ShapeTwoD *> vec);
+void spec_sort_d(vector<ShapeTwoD *> vec);
 ShapeTwoD *shapeArray[100]; //global array for shape objects with a 100 shape limit
 int global_count = 0;       //global counter for appending to the last item in array
 int main()
@@ -551,7 +681,7 @@ int main()
     {
 
         menu(); //prints the menu for the user
-        cout << "Please enter your choice :" << endl;
+        cout << "Please enter your choice :";
         cin >> choice;
         cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
         if (check_number(choice))
@@ -575,13 +705,14 @@ int main()
                 cout << "Total no. of records available = " << global_count << endl;
                 for (int i = 0; i < global_count; i++)
                 {
-                    cout << "Shape [" << i << "]" << endl;
-                    cout << shapeArray[i]->toString() << endl;
+                    cout << shapeArray[i]->toString() << endl
+                         << endl;
+                    ;
                 }
                 PressEnterToContinue();
                 break;
             case 4:
-
+                sort_menu();
                 PressEnterToContinue();
                 break;
             case 5:
@@ -607,6 +738,7 @@ int main()
 
 void menu()
 {
+    cout << endl;
     cout << left << setw(13) << "Student ID";
     cout << ": 7366814" << endl;
     cout << left << setw(13) << "Student Name";
@@ -656,26 +788,26 @@ void read_shape()
     //create new shape based on user input
     if (shape_name == "Square")
     {
-        shapeArray[global_count] = new Square(shape_name, contain_warp);
+        shapeArray[global_count] = new Square(shape_name, contain_warp, global_count);
         shapeArray[global_count]->set_ords();
         global_count++;
     }
     if (shape_name == "Circle")
     {
 
-        shapeArray[global_count] = new Circle(shape_name, contain_warp);
+        shapeArray[global_count] = new Circle(shape_name, contain_warp, global_count);
         shapeArray[global_count]->set_ords();
         global_count++;
     }
     if (shape_name == "Cross")
     {
-        shapeArray[global_count] = new Cross(shape_name, contain_warp);
-        //shapeArray[global_count]->set_ords();
+        shapeArray[global_count] = new Cross(shape_name, contain_warp, global_count);
+        shapeArray[global_count]->set_ords();
         global_count++;
     }
     if (shape_name == "Rectangle")
     {
-        shapeArray[global_count] = new Rectangle(shape_name, contain_warp);
+        shapeArray[global_count] = new Rectangle(shape_name, contain_warp, global_count);
         shapeArray[global_count]->set_ords();
         global_count++;
     }
@@ -686,10 +818,16 @@ void read_shape()
 //print the sort menu
 void sort_menu()
 {
+    vector<ShapeTwoD *> vec;
+    for (int i = 0; i < global_count; i++)
+    {
+        vec.push_back(*(shapeArray + i));
+    }
     char choice;
     cout << "    a)      Sort by area (ascending)" << endl;
     cout << "    b)      Sort by area (descending)" << endl;
-    cout << "    c)      Sort by special type and area\n"
+    cout << "    c)      Sort by special type and area (ascending)\n";
+    cout << "    d)      Sort by special type and area (descending)\n"
          << endl;
     cout << "Please select sort option ('q' to go main menu): ";
 
@@ -699,29 +837,87 @@ void sort_menu()
     {
     case 'a':
         //asc sort
+        asc_sort(vec);
+        cout << endl;
         break;
     case 'b':
+        dsc_sort(vec);
+        cout << endl;
         //dsc sort
         break;
     case 'c':
-        //special sort
+        spec_sort(vec);
+        cout << endl;
+        //special sort asc
+    case 'd':
+        //special sort dsc
+        spec_sort_d(vec);
+        cout << endl;
     case 'q':
         cout << "Going back to main menu.\n\n";
         break;
     }
 }
 //ascending sort
-void asc_sort()
+void asc_sort(vector<ShapeTwoD *> vec)
 {
-    cout << "Sort by area (smallest to largest)...\n";
-    //qsort and print in ascending order
+    sort(vec.begin(), vec.end(), [](ShapeTwoD *lhs, ShapeTwoD *rhs) { //err squiggies
+        return lhs->get_area() > rhs->get_area();
+    });
+    for (int i = 0; i < vec.size(); i++)
+    {
+        cout << vec[i]->toString() << endl;
+    }
 }
 //descending sort
-void dsc_sort()
+void dsc_sort(vector<ShapeTwoD *> vec)
 {
-    cout << "Sort by area (largest to smallest)...\n";
+
+    sort(vec.begin(), vec.end(), [](ShapeTwoD *lhs, ShapeTwoD *rhs) { //err squiggies
+        return lhs->get_area() < rhs->get_area();
+    });
+    for (int i = 0; i < vec.size(); i++)
+    {
+        cout << vec[i]->toString() << endl;
+    }
 }
 //special sort
-void spec_sort()
+void spec_sort(vector<ShapeTwoD *> vec)
 {
+    vector<ShapeTwoD *> vec_NS;
+    vector<ShapeTwoD *> vec_WS;
+    //get all NS type
+    for (int i = 0; i < vec.size(); i++)
+    {
+        if (vec[i]->getContainsWarpSpace() == false)
+        {
+            vec_NS.push_back(*(shapeArray + i));
+        }
+        else
+        {
+            vec_WS.push_back(*(shapeArray + i));
+        }
+    }
+    asc_sort(vec_WS);
+    asc_sort(vec_NS);
+}
+//special sort
+void spec_sort_d(vector<ShapeTwoD *> vec)
+{
+    vector<ShapeTwoD *> vec_NS;
+    vector<ShapeTwoD *> vec_WS;
+    //get all NS type
+    for (int i = 0; i < vec.size(); i++)
+    {
+        if (vec[i]->getContainsWarpSpace() == false)
+        {
+            vec_NS.push_back(*(shapeArray + i));
+        }
+        else
+        {
+            vec_WS.push_back(*(shapeArray + i));
+        }
+    }
+    dsc_sort(vec_WS);
+    dsc_sort(vec_NS);
 }
