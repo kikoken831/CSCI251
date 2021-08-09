@@ -407,7 +407,7 @@ public:
         os << "Shape [" << this->id << "]\n";
         os << "Name  : " << this->name << endl
            << "Special Type : " << stype << endl
-           << "Area : " << setprecision(2) << area << " units square" << endl
+           << "Area : " << fixed << setprecision(2) << area << " units square" << endl
            << "Vectices : \n"
            << "Point [0] : (" << this->x_ord << ", " << this->y_ord << ")\n"
            << "Points on Perimeter : ";
