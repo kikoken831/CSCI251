@@ -12,59 +12,51 @@
 
 using namespace std;
 
-class ShapeTwoD
+class ShapeTwoD // abstract class, only used to hold name, bool and id
 {
-protected:
-    string name;
-    bool containsWarpSpace;
-    int id;
+    protected:
+        string name;
+        bool containsWarpSpace;
+        int id;
+        
+    public:
 
-public:
-    ShapeTwoD()
-    {
-        name = "N/A";
-        containsWarpSpace = false;
-    }
-    ShapeTwoD(string name , bool containsWarpSpace , int id)
-    {
-        this->name = name;
-        this->containsWarpSpace = containsWarpSpace;
-        this->id = id;
-    }
+        void setName(string name);
 
-    void setName(string name);
+        void setContainsWarpSpace(bool containsWarpSpace);
 
-    void setContainsWarpSpace(bool containsWarpSpace);
+        string getName();
 
-    string getName();
+        bool getContainsWarpSpace();
+        //virtual polymorphic methods needed
+        virtual string toString() = 0;
 
-    bool getContainsWarpSpace();
+        virtual double computeArea() = 0;
 
-    virtual string toString() = 0;
+        virtual bool isPointInShape(int x, int y) = 0;
 
-    virtual double computeArea() = 0;
+        virtual bool isPointOnShape(int x, int y) = 0;
 
-    virtual bool isPointInShape(int x, int y) = 0;
+        virtual void set_ords() = 0;
 
-    virtual bool isPointOnShape(int x, int y) = 0;
+        virtual void set_area() = 0;
 
-    virtual void set_ords() = 0;
+        virtual double get_area() = 0;
 
-    virtual void set_area() = 0;
-
-    virtual double get_area() = 0;
+        virtual ~ShapeTwoD() = default;//virtual destructor to prevent mem leaks
 };
 
 class Square : public ShapeTwoD
 {
 private:
+    //additional attributes only unique to square
     int x_ord[4];
     int y_ord[4];
-    double area;
-    int x_min;
-    int y_min;
-    int x_max;
-    int y_max;
+    int area = 0;
+    int x_min = INT_MAX;
+    int y_min = INT_MAX;
+    int x_max = 0;
+    int y_max = 0;
 
 public:
     void set_area();
@@ -75,19 +67,19 @@ public:
     bool isPointInShape(int x, int y);
     bool isPointOnShape(int x, int y);
     double get_area();
-    bool operator>(const Square &str) const;
+
 };
 
 class Rectangle : public ShapeTwoD
 {
-private:
+private://additional attributes only unique to rectangle
     int x_ord[4];
     int y_ord[4];
-    double area;
-    int x_min;
-    int y_min;
-    int x_max;
-    int y_max;
+    int area = 0;
+    int x_min = INT_MAX;
+    int y_min = INT_MAX;
+    int x_max = 0;
+    int y_max = 0;
 
 public:
     void set_area();
@@ -106,14 +98,15 @@ public:
 
     double get_area();
 
-    bool operator>(const Rectangle &str) const;
+ 
 };
 class Circle : public ShapeTwoD
 {
+private://additional attributes only unique to circle
     int x_ord;
     int y_ord;
     int radius;
-    double area;
+    double area = 0;
 
 public:
     Circle(string name, bool containsWarpSpace, int id);
@@ -132,19 +125,19 @@ public:
 
     double get_area();
 
-    bool operator>(const Circle &str) const;
+   
 
 };
 class Cross : public ShapeTwoD
 {
-
+private://additional attributes only unique to Cross
     int x_ord[12];
     int y_ord[12];
-    double area;
-    int x_min;
-    int y_min;
-    int x_max;
-    int y_max;
+    int area = 0;
+    int x_min = INT_MAX;
+    int y_min = INT_MAX;
+    int x_max = 0;
+    int y_max = 0;
 
 public:
     Cross(string name, bool containsWarpSpace, int id);
@@ -167,7 +160,7 @@ public:
 
     double get_area();
  
-    bool operator>(const Cross &str) const;
+
 
 };
 

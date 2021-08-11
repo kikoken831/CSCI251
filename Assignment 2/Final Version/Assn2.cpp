@@ -11,16 +11,16 @@ void spec_sort(vector<ShapeTwoD *> vec);
 void asc_sort(vector<ShapeTwoD *> vec);
 void spec_sort_d(vector<ShapeTwoD *> vec);
 using namespace std;
-ShapeTwoD *shapeArray[100]; //global array for shape objects with a 100 shape limit
-int global_count = 0;       //global counter for appending to the last item in array
+ShapeTwoD *shape_Ar[100];
+//global array for shape objects with a 100 shape limit
+int global_count = 0;
+//global counter for appending to the last item in array
 int main()
 {
     string choice;
     bool flag = true;
-    int i;
     while (flag)
     {
-
         menu(); //prints the menu for the user
         cout << "Please enter your choice : ";
         cin >> choice;
@@ -34,19 +34,22 @@ int main()
                 read_shape();
                 break;
             case 2:
-                for (int i = 0; i < global_count; i++)
+
+                for (int i = 0; i < global_count; i++) //iterates the shape array to dynamicaly comptue the array
                 {
-                    shapeArray[i]->set_area();
+                    shape_Ar[i]->set_area(); //function runs a set method that computes the area depending on child
                 }
                 cout << "Computation completed! (" << global_count << " records were updated )" << endl;
+
                 PressEnterToContinue();
                 break;
             case 3:
+
                 cout << "Total no. of records available = " << global_count << endl;
-                for (int i = 0; i < global_count; i++)
+                for (int i = 0; i < global_count; i++) //iterates the shape array to dynamically call the toString function as it vaires from child to child
                 {
-                    cout << shapeArray[i]->toString() << endl
-                         << endl; 
+                    cout << shape_Ar[i]->toString() << endl
+                         << endl;
                 }
                 PressEnterToContinue();
                 break;
@@ -72,9 +75,13 @@ int main()
             PressEnterToContinue();
         }
     }
+    for (auto v : shape_Ar)
+    {
+        delete v;
+    }
     return 0;
 }
-
+//simple menu for program
 void menu()
 {
     cout << endl;
@@ -115,65 +122,72 @@ void read_shape()
     string shape_name;
     string spec_type;
     bool contain_warp;
+
     //prompt user for name of shape
     cout << "Please enter name of shape: ";
     cin >> shape_name;
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
-    //prompt user for type
     cout << "Please enter special type: ";
     cin >> spec_type;
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
     contain_warp = (spec_type == "WS") ? true : (spec_type == "NS") ? false
                                                                     : false;
-
     //create new shape based on user input
     if (shape_name == "Square")
     {
-        shapeArray[global_count] = new Square(shape_name, contain_warp, global_count);
-        shapeArray[global_count]->set_ords();
+        //using global count as pointer arithmetic and ID
+        shape_Ar[global_count] = new Square(shape_name, contain_warp, global_count); //allocated to the heap
         global_count++;
+        cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        cout << "Record successfully stored. Going back to main menu....." << endl;
     }
-    if (shape_name == "Circle")
+    else if (shape_name == "Circle") //same application as Square
     {
-
-        shapeArray[global_count] = new Circle(shape_name, contain_warp, global_count);
-        shapeArray[global_count]->set_ords();
+        shape_Ar[global_count] = new Circle(shape_name, contain_warp, global_count);
         global_count++;
+        cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        cout << "Record successfully stored. Going back to main menu....." << endl;
     }
-    if (shape_name == "Cross")
+    else if (shape_name == "Cross") //same application as Square
     {
-        shapeArray[global_count] = new Cross(shape_name, contain_warp, global_count);
-        shapeArray[global_count]->set_ords();
+        shape_Ar[global_count] = new Cross(shape_name, contain_warp, global_count);
         global_count++;
+        cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        cout << "Record successfully stored. Going back to main menu....." << endl;
     }
-    if (shape_name == "Rectangle")
+    else if (shape_name == "Rectangle") //same application as Square
     {
-        shapeArray[global_count] = new Rectangle(shape_name, contain_warp, global_count);
-        shapeArray[global_count]->set_ords();
+        shape_Ar[global_count] = new Rectangle(shape_name, contain_warp, global_count);
         global_count++;
+        cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        cout << "Record successfully stored. Going back to main menu....." << endl;
     }
-    //run the shape child setter methods for getting the x,y ordinates
-    //cout record stored successfully
-    cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
-    cout << "Record successfully stored. Going back to main menu....." << endl;
+    else
+    {
+        cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        cout << "Invaild shape name, exiting to menu" << endl
+             << endl;
+    }
 }
 //print the sort menu
 void sort_menu()
 {
+    //get the array stored into a local vector to preserve the original shape order by id
     vector<ShapeTwoD *> vec;
     for (int i = 0; i < global_count; i++)
     {
-        vec.push_back(*(shapeArray + i));
+        vec.push_back(shape_Ar[i]);
     }
     char choice;
     cout << "    a)      Sort by area (ascending)" << endl;
     cout << "    b)      Sort by area (descending)" << endl;
-    cout << "    c)      Sort by special type and area (ascending)\n"<< endl;
-    
-         
+    cout << "    c)      Sort by special type and area (ascending)\n";
+    cout << "    d)      Sort by special type and area (ascending)"    << endl;
+
     cout << "Please select sort option ('q' to go main menu): ";
 
     cin >> choice;
+    cout << endl;
     cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
     //switch statement for each sort type
     switch (choice)
@@ -192,6 +206,9 @@ void sort_menu()
         spec_sort(vec);
         cout << endl;
         //special sort asc
+    case 'd':
+        spec_sort_d(vec);
+        cout << endl;
     case 'q':
         cout << "Going back to main menu.\n\n";
         break;
@@ -200,69 +217,65 @@ void sort_menu()
 //ascending sort
 void asc_sort(vector<ShapeTwoD *> vec)
 {
+    //lambda function to get descending order
     sort(vec.begin(), vec.end(), [](ShapeTwoD *lhs, ShapeTwoD *rhs) { //err squiggies
         return lhs->get_area() > rhs->get_area();
     });
     for (int i = 0; i < vec.size(); i++)
     {
-        cout << vec[i]->toString() << endl << endl;
+        cout << vec[i]->toString() << endl
+             << endl;
     }
 }
 //descending sort
 void dsc_sort(vector<ShapeTwoD *> vec)
 {
-
+    //lambda function to get descending order
     sort(vec.begin(), vec.end(), [](ShapeTwoD *lhs, ShapeTwoD *rhs) { //err squiggies
         return lhs->get_area() < rhs->get_area();
     });
     for (int i = 0; i < vec.size(); i++)
     {
-        cout << vec[i]->toString() << endl << endl;
+        cout << vec[i]->toString() << endl
+             << endl;
     }
 }
-//special sort
+//special sort with precedence given to WS and largest area
 void spec_sort(vector<ShapeTwoD *> vec)
 {
-    vector<ShapeTwoD *> vec_NS;
-    vector<ShapeTwoD *> vec_WS;
+    vector<ShapeTwoD *> vec_NS; //vector to store shapes with NS type
+    vector<ShapeTwoD *> vec_WS; //vector to store shapes with WS type
     //get all NS type
     for (int i = 0; i < vec.size(); i++)
     {
-        if (vec[i]->getContainsWarpSpace() == false)
+        if (vec[i]->getContainsWarpSpace() == false) //if object is NS append to NS vector else WS vector
         {
-            vec_NS.push_back(*(shapeArray + i));
+            vec_NS.push_back(vec[i]);
         }
         else
         {
-            vec_WS.push_back(*(shapeArray + i));
+            vec_WS.push_back(vec[i]);
         }
-    }
-    for(int i = 0; i < vec_NS.size(); i++)
-    {
-        cout << vec_NS[i]->getName() << endl;
-    }
-    for(int i = 0; i < vec_WS.size(); i++)
-    {
-        cout << vec_WS[i]->getName() << endl;
     }
     asc_sort(vec_WS);
     asc_sort(vec_NS);
 }
-//special sort
+
+//special sort with precedence given to WS and largest area
 void spec_sort_d(vector<ShapeTwoD *> vec)
 {
-    vector<ShapeTwoD *> vec_NS;
-    vector<ShapeTwoD *> vec_WS;
+    vector<ShapeTwoD *> vec_NS; //vector to store shapes with NS type
+    vector<ShapeTwoD *> vec_WS; //vector to store shapes with WS type
     //get all NS type
     for (int i = 0; i < vec.size(); i++)
     {
-        if (vec[i]->getContainsWarpSpace() == false)
+        if (vec[i]->getContainsWarpSpace() == false) //if object is NS append to NS vector else WS vector
         {
-            vec_NS.push_back(*(shapeArray + i));
+            vec_NS.push_back(vec[i]);
         }
         else
         {
-            vec_WS.push_back(*(shapeArray + i));
+            vec_WS.push_back(vec[i]);
         }
     }
     dsc_sort(vec_WS);
