@@ -14,36 +14,36 @@ using namespace std;
 
 class ShapeTwoD // abstract class, only used to hold name, bool and id
 {
-    protected:
-        string name;
-        bool containsWarpSpace;
-        int id;
-        
-    public:
+protected:
+    string name;
+    bool containsWarpSpace;
+    int id;
 
-        void setName(string name);
+public:
+    ShapeTwoD(string name = "", bool containsWarpSpace = false){};
+    void setName(string name);
 
-        void setContainsWarpSpace(bool containsWarpSpace);
+    void setContainsWarpSpace(bool containsWarpSpace);
 
-        string getName();
+    string getName();
 
-        bool getContainsWarpSpace();
-        //virtual polymorphic methods needed
-        virtual string toString() = 0;
+    bool getContainsWarpSpace();
+    //virtual polymorphic methods needed
+    virtual string toString() = 0;
 
-        virtual double computeArea() = 0;
+    virtual double computeArea() = 0;
 
-        virtual bool isPointInShape(int x, int y) = 0;
+    virtual bool isPointInShape(int x, int y) = 0;
 
-        virtual bool isPointOnShape(int x, int y) = 0;
+    virtual bool isPointOnShape(int x, int y) = 0;
 
-        virtual void set_ords() = 0;
+    virtual void set_ords() = 0;
 
-        virtual void set_area() = 0;
+    virtual void set_area() = 0;
 
-        virtual double get_area() = 0;
+    virtual double get_area() = 0;
 
-        virtual ~ShapeTwoD() = default;//virtual destructor to prevent mem leaks
+    virtual ~ShapeTwoD() = default; //virtual destructor to prevent mem leaks
 };
 
 class Square : public ShapeTwoD
@@ -67,12 +67,11 @@ public:
     bool isPointInShape(int x, int y);
     bool isPointOnShape(int x, int y);
     double get_area();
-
 };
 
 class Rectangle : public ShapeTwoD
 {
-private://additional attributes only unique to rectangle
+private: //additional attributes only unique to rectangle
     int x_ord[4];
     int y_ord[4];
     int area = 0;
@@ -97,12 +96,10 @@ public:
     double computeArea();
 
     double get_area();
-
- 
 };
 class Circle : public ShapeTwoD
 {
-private://additional attributes only unique to circle
+private: //additional attributes only unique to circle
     int x_ord;
     int y_ord;
     int radius;
@@ -116,7 +113,7 @@ public:
     void set_ords();
 
     string toString();
-    
+
     bool isPointOnShape(int x, int y);
 
     bool isPointInShape(int x, int y);
@@ -124,13 +121,10 @@ public:
     double computeArea();
 
     double get_area();
-
-   
-
 };
 class Cross : public ShapeTwoD
 {
-private://additional attributes only unique to Cross
+private: //additional attributes only unique to Cross
     int x_ord[12];
     int y_ord[12];
     int area = 0;
@@ -147,21 +141,18 @@ public:
     void set_ords();
 
     string toString();
-    
+
     double computeArea();
 
     bool isPointOnShape(int x, int y);
 
     bool isPointInShape(int x, int y);
-    
+
     int pnpoly(int nvert, int *vertx, int *verty, int testx, int testy);
 
     bool isPointaVertex(int x, int y);
 
     double get_area();
- 
-
-
 };
 
 #endif

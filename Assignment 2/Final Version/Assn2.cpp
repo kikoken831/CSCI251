@@ -182,7 +182,7 @@ void sort_menu()
     cout << "    a)      Sort by area (ascending)" << endl;
     cout << "    b)      Sort by area (descending)" << endl;
     cout << "    c)      Sort by special type and area (ascending)\n";
-    cout << "    d)      Sort by special type and area (ascending)"    << endl;
+    cout << "    d)      Sort by special type and area (ascending)" << endl;
 
     cout << "Please select sort option ('q' to go main menu): ";
 
