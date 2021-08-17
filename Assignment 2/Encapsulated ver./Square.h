@@ -9,8 +9,8 @@ private:
     int x_ord[4];
     int y_ord[4];
     int area = 0;
-    int x_min = INT_MAX;
-    int y_min = INT_MAX;
+    int x_min = INT8_MAX;
+    int y_min = INT8_MAX;
     int x_max = 0;
     int y_max = 0;
 
