@@ -211,18 +211,21 @@ void sort_menu()
         spec_sort(vec);
         cout << endl;
         //special sort asc
+        break;
     case 'd':
         spec_sort_d(vec);
         cout << endl;
+        break;
     case 'q':
         cout << "Going back to main menu.\n\n";
         break;
     }
+    vec.clear();
 }
 //ascending sort
 void asc_sort(vector<ShapeTwoD *> vec)
 {
-    //lambda function to get descending order
+    //lambda function to get ascending order
     sort(vec.begin(), vec.end(), [](ShapeTwoD *lhs, ShapeTwoD *rhs) { //err squiggies
         return lhs->get_area() > rhs->get_area();
     });
@@ -264,6 +267,8 @@ void spec_sort(vector<ShapeTwoD *> vec)
     }
     asc_sort(vec_WS);
     asc_sort(vec_NS);
+    vec_NS.clear();
+    vec_WS.clear();
 }
 
 //special sort with precedence given to WS and largest area
@@ -285,4 +290,6 @@ void spec_sort_d(vector<ShapeTwoD *> vec)
     }
     dsc_sort(vec_WS);
     dsc_sort(vec_NS);
+    vec_NS.clear();
+    vec_WS.clear();
 }
