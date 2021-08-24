@@ -181,7 +181,7 @@ void pre_Processing()
     vector<string> temp2;
     for (string x : unique_Records) //goes through each unique record
     {
-        temp = tokenizeString(x, ",");
+        temp = tokenizeString(x, ", ");
 
         if (temp[0] == "Point2D") //creates a Point2D object if head of string matches
         {
@@ -269,9 +269,9 @@ void changeSorting() //change sorting type func
     char choice;
     if (f_mode == 0)
     {
-        cout << "   a)      " << sort_mode[0] << " records" << endl;
-        cout << "   b)      " << sort_mode[1] << " records" << endl;
-        cout << "   c)      " << sort_mode[3] << " records" << endl;
+        cout << "   a)      " << sort_mode[0] << " values" << endl;
+        cout << "   b)      " << sort_mode[1] << " values" << endl;
+        cout << "   c)      " << sort_mode[3] << " values" << endl;
         cout << endl
              << "Please enter your criteria (a - c) : ";
         cin >> choice;
@@ -279,10 +279,10 @@ void changeSorting() //change sorting type func
     }
     else if (f_mode == 1)
     {
-        cout << "   a)      " << sort_mode[0] << " records" << endl;
-        cout << "   b)      " << sort_mode[1] << " records" << endl;
-        cout << "   c)      " << sort_mode[2] << " records" << endl;
-        cout << "   d)      " << sort_mode[3] << " records" << endl;
+        cout << "   a)      " << sort_mode[0] << " values" << endl;
+        cout << "   b)      " << sort_mode[1] << " values" << endl;
+        cout << "   c)      " << sort_mode[2] << " values" << endl;
+        cout << "   d)      " << sort_mode[3] << " values" << endl;
         cout << endl
              << "Please enter your criteria (a - d) : ";
         cin >> choice;
@@ -290,9 +290,9 @@ void changeSorting() //change sorting type func
     }
     else
     {
-        cout << "   a)      " << sort_mode[4] << " records" << endl;
-        cout << "   b)      " << sort_mode[5] << " records" << endl;
-        cout << "   c)      " << sort_mode[6] << " records" << endl;
+        cout << "   a)      " << sort_mode[4] << " values" << endl;
+        cout << "   b)      " << sort_mode[5] << " values" << endl;
+        cout << "   c)      " << sort_mode[6] << " values" << endl;
         cout << endl
              << "Please enter your criteria (a - c) : ";
         cin >> choice;
@@ -743,7 +743,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -757,7 +757,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 1:
@@ -773,7 +773,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -787,7 +787,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 3:
@@ -803,7 +803,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -817,7 +817,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p2d_vec.size() << "records output successfully!" << endl;
+                cout << p2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         }
@@ -838,7 +838,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -852,7 +852,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 1:
@@ -868,7 +868,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -882,7 +882,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 2:
@@ -898,7 +898,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -912,7 +912,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 3:
@@ -928,7 +928,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -942,7 +942,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << p3d_vec.size() << "records output successfully!" << endl;
+                cout << p3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         }
@@ -961,7 +961,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -973,7 +973,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 5:
@@ -987,7 +987,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -999,7 +999,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 6:
@@ -1013,7 +1013,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -1025,7 +1025,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l2d_vec.size() << "records output successfully!" << endl;
+                cout << l2d_vec.size() << " records output successfully!" << endl;
             }
             break;
         }
@@ -1044,7 +1044,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -1056,7 +1056,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 5:
@@ -1070,7 +1070,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -1082,7 +1082,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         case 6:
@@ -1096,7 +1096,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             else
             {
@@ -1108,7 +1108,7 @@ void storeData() //stores output into a file
                 {
                     outfile << x << endl;
                 }
-                cout << l3d_vec.size() << "records output successfully!" << endl;
+                cout << l3d_vec.size() << " records output successfully!" << endl;
             }
             break;
         }
