@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 class Point2D
 {
