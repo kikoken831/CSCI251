@@ -415,7 +415,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_asc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_asc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -428,7 +428,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_dsc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_dsc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -443,7 +443,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_asc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_asc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -456,7 +456,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_dsc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_dsc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -471,7 +471,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end()); //asc
+                sort(p2d_vec.begin(), p2d_vec.end()); //asc
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -484,7 +484,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), greater<Point2D>()); //dsc
+                sort(p2d_vec.begin(), p2d_vec.end(), greater<Point2D>()); //dsc
                 cout << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -504,7 +504,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_asc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -517,7 +517,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_dsc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -532,7 +532,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_asc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -545,7 +545,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_dsc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -560,7 +560,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_asc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -573,7 +573,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_dsc);
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -588,7 +588,7 @@ void viewData() //displays all records based on filters
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end());
+                sort(p3d_vec.begin(), p3d_vec.end());
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -601,7 +601,7 @@ void viewData() //displays all records based on filters
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), greater<Point3D>());
+                sort(p3d_vec.begin(), p3d_vec.end(), greater<Point3D>());
                 cout << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -620,7 +620,7 @@ void viewData() //displays all records based on filters
         case 4:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_asc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_asc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -631,7 +631,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_dsc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_dsc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -644,7 +644,7 @@ void viewData() //displays all records based on filters
         case 5:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_asc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_asc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -655,7 +655,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_dsc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_dsc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -668,7 +668,7 @@ void viewData() //displays all records based on filters
         case 6:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end());
+                sort(l2d_vec.begin(), l2d_vec.end());
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -679,7 +679,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), greater<Line2D>());
+                sort(l2d_vec.begin(), l2d_vec.end(), greater<Line2D>());
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -697,7 +697,7 @@ void viewData() //displays all records based on filters
         case 4:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_asc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_asc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -708,7 +708,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_dsc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_dsc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -721,7 +721,7 @@ void viewData() //displays all records based on filters
         case 5:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_asc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_asc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -732,7 +732,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_dsc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_dsc);
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -745,7 +745,7 @@ void viewData() //displays all records based on filters
         case 6:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end());
+                sort(l3d_vec.begin(), l3d_vec.end());
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -756,7 +756,7 @@ void viewData() //displays all records based on filters
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), greater<Line3D>());
+                sort(l3d_vec.begin(), l3d_vec.end(), greater<Line3D>());
                 cout << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -790,7 +790,7 @@ void storeData() //stores output into a file
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_asc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_asc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -804,7 +804,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_dsc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_X_dsc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -820,7 +820,7 @@ void storeData() //stores output into a file
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_asc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_asc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -834,7 +834,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_dsc);
+                sort(p2d_vec.begin(), p2d_vec.end(), Point2D::compare_Y_dsc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -850,7 +850,7 @@ void storeData() //stores output into a file
             if (o_mode == 0) //checks for ASC or DSC
             {
                 //do Asc
-                qsort(p2d_vec.begin(), p2d_vec.end()); //asc
+                sort(p2d_vec.begin(), p2d_vec.end()); //asc
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -864,7 +864,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p2d_vec.begin(), p2d_vec.end(), greater<Point2D>()); //dsc
+                sort(p2d_vec.begin(), p2d_vec.end(), greater<Point2D>()); //dsc
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -885,7 +885,7 @@ void storeData() //stores output into a file
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_asc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -899,7 +899,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_X_dsc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -915,7 +915,7 @@ void storeData() //stores output into a file
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_asc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -929,7 +929,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Y_dsc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -945,7 +945,7 @@ void storeData() //stores output into a file
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_asc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_asc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -959,7 +959,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_dsc);
+                sort(p3d_vec.begin(), p3d_vec.end(), Point3D::compare_Z_dsc);
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -975,7 +975,7 @@ void storeData() //stores output into a file
             if (o_mode == 0)
             {
                 //do Asc
-                qsort(p3d_vec.begin(), p3d_vec.end());
+                sort(p3d_vec.begin(), p3d_vec.end());
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -989,7 +989,7 @@ void storeData() //stores output into a file
             else
             {
                 //do dsc
-                qsort(p3d_vec.begin(), p3d_vec.end(), greater<Point3D>());
+                sort(p3d_vec.begin(), p3d_vec.end(), greater<Point3D>());
                 outfile << setw(5) << right << "X" << setw(6) << right << "Y" << setw(6) << right << "Z"
                      << "    Dist. Fr Origin" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1009,7 +1009,7 @@ void storeData() //stores output into a file
         case 4:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_asc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_asc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1021,7 +1021,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_dsc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p1_dsc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1035,7 +1035,7 @@ void storeData() //stores output into a file
         case 5:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_asc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_asc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1047,7 +1047,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_dsc);
+                sort(l2d_vec.begin(), l2d_vec.end(), Line2D::compare_p2_dsc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1061,7 +1061,7 @@ void storeData() //stores output into a file
         case 6:
             if (o_mode == 0)
             {
-                qsort(l2d_vec.begin(), l2d_vec.end());
+                sort(l2d_vec.begin(), l2d_vec.end());
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1073,7 +1073,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l2d_vec.begin(), l2d_vec.end(), greater<Line2D>());
+                sort(l2d_vec.begin(), l2d_vec.end(), greater<Line2D>());
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - -" << endl;
@@ -1092,7 +1092,7 @@ void storeData() //stores output into a file
         case 4:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_asc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_asc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -1104,7 +1104,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_dsc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p1_dsc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -1118,7 +1118,7 @@ void storeData() //stores output into a file
         case 5:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_asc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_asc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -1130,7 +1130,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_dsc);
+                sort(l3d_vec.begin(), l3d_vec.end(), Line3D::compare_p2_dsc);
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -1144,7 +1144,7 @@ void storeData() //stores output into a file
         case 6:
             if (o_mode == 0)
             {
-                qsort(l3d_vec.begin(), l3d_vec.end());
+                sort(l3d_vec.begin(), l3d_vec.end());
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -1156,7 +1156,7 @@ void storeData() //stores output into a file
             }
             else
             {
-                qsort(l3d_vec.begin(), l3d_vec.end(), greater<Line3D>());
+                sort(l3d_vec.begin(), l3d_vec.end(), greater<Line3D>());
                 outfile << setw(5) << right << "P1-X" << setw(6) << right << "P1-Y" << setw(6) << right << "P1-Z" << setw(9) << right << "P2-X" << setw(6) << right << "P2-Y" << setw(6) << right << "P2-Z"
                      << "    Length" << endl
                      << "- - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
