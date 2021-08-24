@@ -185,94 +185,38 @@ void pre_Processing()
 
         if (temp[0] == "Point2D") //creates a Point2D object if head of string matches
         {
-            stringstream ss(temp[1]);
-            int i1;
-            ss >> i1;
-            ss.clear();
-            ss.str("");
-            ss << temp[2];
-            int i2;
-            ss >> i2;
-            ss.clear();
-            ss.str("");
+            int i1, i2;
+            i1 = stoi(temp[1]);
+            i2 = stoi(temp[2]);
             p2d_vec.push_back(Point2D(i1, i2));
         }
         else if (temp[0] == "Point3D") //creates a Point3D object if head of string matches
         {
-            stringstream ss(temp[1]);
-            int i1;
-            ss >> i1;
-            ss.clear();
-            ss.str("");
-            ss << temp[2];
-            int i2;
-            ss >> i2;
-            ss.clear();
-            ss.str("");
-            ss << temp[3];
-            int i3;
-            ss >> i3;
-            ss.clear();
-            ss.str("");
+            int i1, i2, i3;
+            i1 = stoi(temp[1]);
+            i2 = stoi(temp[2]);
+            i3 = stoi(temp[3]);
             p3d_vec.push_back(Point3D(i1, i2, i3));
         }
         else if (temp[0] == "Line2D") //creates a Line2D object if head of string matches
         {
 
-            stringstream ss(temp[1]);
-            int i1;
-            ss >> i1;
-            ss.clear();
-            ss.str("");
-            ss << temp[2];
-            int i2;
-            ss >> i2;
-            ss.clear();
-            ss.str("");
-            ss << temp[3];
-            int i3;
-            ss >> i3;
-            ss.clear();
-            ss.str("");
-            ss << temp[4];
-            int i4;
-            ss >> i4;
-            ss.clear();
-            ss.str("");
+            int i1, i2, i3, i4;
+            i1 = stoi(temp[1]);
+            i2 = stoi(temp[2]);
+            i3 = stoi(temp[3]);
+            i4 = stoi(temp[4]);
             l2d_vec.push_back(Line2D(i1, i2, i3, i4));
         }
         else if (temp[0] == "Line3D") //creates a Line3D object if head of string matches
         {
-            stringstream ss(temp[1]);
-            int i1;
-            ss >> i1;
-            ss.clear();
-            ss.str("");
-            ss << temp[2];
-            int i2;
-            ss >> i2;
-            ss.clear();
-            ss.str("");
-            ss << temp[3];
-            int i3;
-            ss >> i3;
-            ss.clear();
-            ss.str("");
-            ss << temp[4];
-            int i4;
-            ss >> i4;
-            ss.clear();
-            ss.str("");
-            ss << temp[5];
-            int i5;
-            ss >> i5;
-            ss.clear();
-            ss.str("");
-            ss << temp[6];
-            int i6;
-            ss >> i6;
-            ss.clear();
-            ss.str("");
+            int i1, i2, i3, i4, i5, i6;
+            i1 = stoi(temp[1]);
+            i2 = stoi(temp[2]);
+            i3 = stoi(temp[3]);
+            i4 = stoi(temp[4]);
+            i5 = stoi(temp[5]);
+            i6 = stoi(temp[6]);
             l3d_vec.push_back(Line3D(i1, i2, i3, i4, i5, i6));
         }
     }
