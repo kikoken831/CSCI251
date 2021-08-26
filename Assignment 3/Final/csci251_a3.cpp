@@ -32,7 +32,7 @@ vector<Line3D> l3d_vec;
 
 //mode names for 3 different sorting types
 string filter_mode[] = {"Point2D", "Point3D", "Line2D", "Line3D"};
-string sort_mode[] = {"x-ordinate", "y-ordinate", "z-ordinate", "Dist.Fr Origin value", "Pt.1", "Pt.2", "Length Value"};
+string sort_mode[] = {"x-ordinate", "y-ordinate", "z-ordinate", "Dist.Fr Origin", "Pt.1", "Pt.2", "Length"};
 string order_mode[] = {"ASC", "DSC"};
 int f_mode, s_mode, o_mode = 0; //all set to default
 
@@ -271,7 +271,7 @@ void changeSorting() //change sorting type func
     {
         cout << "   a)      " << sort_mode[0] << " values" << endl;
         cout << "   b)      " << sort_mode[1] << " values" << endl;
-        cout << "   c)      " << sort_mode[3] << " values" << endl;
+        cout << "   c)      " << sort_mode[3] << " value" << endl;
         cout << endl
              << "Please enter your criteria (a - c) : ";
         cin >> choice;
@@ -282,7 +282,7 @@ void changeSorting() //change sorting type func
         cout << "   a)      " << sort_mode[0] << " values" << endl;
         cout << "   b)      " << sort_mode[1] << " values" << endl;
         cout << "   c)      " << sort_mode[2] << " values" << endl;
-        cout << "   d)      " << sort_mode[3] << " values" << endl;
+        cout << "   d)      " << sort_mode[3] << " value" << endl;
         cout << endl
              << "Please enter your criteria (a - d) : ";
         cin >> choice;
@@ -290,9 +290,9 @@ void changeSorting() //change sorting type func
     }
     else
     {
-        cout << "   a)      " << sort_mode[4] << " values" << endl;
-        cout << "   b)      " << sort_mode[5] << " values" << endl;
-        cout << "   c)      " << sort_mode[6] << " values" << endl;
+        cout << "   a)      " << sort_mode[4] << "'s (x, y) values" << endl;
+        cout << "   b)      " << sort_mode[5] << "'s (x, y) values" << endl;
+        cout << "   c)      " << sort_mode[6] << "' value" << endl;
         cout << endl
              << "Please enter your criteria (a - c) : ";
         cin >> choice;
